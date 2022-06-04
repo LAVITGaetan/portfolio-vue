@@ -1,11 +1,11 @@
 <template>
   <div id="app">
     <div id="grid">
-  <Content v-if="contentArray[0] == undefined"/>
-  <Presentation :msg="messagez" v-if="contentArray[0] === 'Presentation'"/>
-  <Project :msg="message" v-if="contentArray[0] === 'Project'"/>
-  <Competence :msg="messagea" v-if="contentArray[0] === 'Competence'"/>
-      <div class="nav nav1" @click="nav('Presentation')">
+      <Content v-if="contentArray[0] == undefined" />
+      <Presentation :msg="messagez" v-if="contentArray[0] === 'presentation'" />
+      <Project :msg="message" v-if="contentArray[0] === 'project'" />
+      <Competence :msg="messagea" v-if="contentArray[0] === 'competence'" />
+      <div class="nav" id="nav-presentation" @click="nav('presentation')">
         <img
           class="color0 nav-icon"
           src="./assets/polygon-full.svg"
@@ -14,7 +14,7 @@
         />
         <h2 class="nav-title">Présentation</h2>
       </div>
-      <div class="nav nav2" @click="nav('Project')">
+      <div class="nav" id="nav-project" @click="nav('project')">
         <img
           class="color0 nav-icon"
           src="./assets/polygon-full.svg"
@@ -23,7 +23,7 @@
         />
         <h2 class="nav-title">Projets</h2>
       </div>
-      <div class="nav nav3" @click="nav('Competence')">
+      <div class="nav" id="nav-competence" @click="nav('competence')">
         <img
           class="color0 nav-icon"
           src="./assets/polygon-full.svg"
@@ -37,11 +37,10 @@
 </template>
 
 <script>
-
-import Content from './components/Content.vue';
-import Presentation from './components/Project.vue';
-import Project from './components/Project.vue';
-import Competence from './components/Project.vue';
+import Content from "./components/Content.vue";
+import Presentation from "./components/Presentation.vue";
+import Project from "./components/Project.vue";
+import Competence from "./components/Competence.vue";
 
 export default {
   name: "App",
@@ -49,22 +48,37 @@ export default {
     Content,
     Presentation,
     Project,
-    Competence
+    Competence,
   },
-  data () {
+  data() {
     return {
-      message:'hi',
-      messagez:'hizzz',
-      messagea:'hiaaaa',
-      contentArray:[]
-    }
+      message: "hi",
+      messagez: "hizzz",
+      messagea: "hiaaaa",
+      contentArray: [],
+    };
   },
   methods: {
+    navDesign(content) {
+      setTimeout(() => {
+        let presentation = document.getElementById('nav-presentation');
+        let project = document.getElementById('nav-project');
+        let competence = document.getElementById('nav-competence');
+
+        presentation.classList.remove('nav-active');
+        project.classList.remove('nav-active');
+        competence.classList.remove('nav-active');
+      let element = document.getElementById(`nav-${content}`);
+          element.classList.add('nav-active');
+      }, 100);
+
+    },
     nav(content) {
       this.contentArray = [];
-      this.contentArray.push(content)
+      this.contentArray.push(content);
+      this.navDesign(content);
     }
-  }
+  },
 };
 </script>
 
@@ -121,6 +135,12 @@ export default {
   cursor: pointer;
 }
 
+.nav-active {
+  background: var(--colorDarkLighter);
+  box-shadow: 5px 5px 10px #00000020;
+  margin: 20px;
+}
+
 .nav::before {
   transition: 0.3s ease-out;
   content: "";
@@ -169,17 +189,17 @@ export default {
   letter-spacing: 0.15em;
 }
 
-.nav1 {
+#nav-presentation {
   transition: 0.3s ease-out;
   grid-area: 2 / 1 / 2 / 2;
 }
 
-.nav2 {
+#nav-project {
   transition: 0.3s ease-out;
   grid-area: 3 / 1 / 4 / 2;
 }
 
-.nav3 {
+#nav-competence {
   transition: 0.3s ease-out;
   grid-area: 4 / 1 / 4 / 2;
 }
@@ -198,8 +218,14 @@ export default {
   z-index: 100;
 }
 
-#content, #presentation, #project, #competence {
+#content,
+#presentation,
+#project,
+#competence {
   grid-area: 2 / 2 / 6 / 6;
-  background: var(--colorDarkLighter);
+  background: var(--colorDark);
+  border-top-left-radius: 5px;
+  padding: 15px;
+  margin-left: 25px;
 }
 </style>
