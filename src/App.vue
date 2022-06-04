@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <div id="grid">
+  <Content v-if="contentArray[0] == undefined"/>
   <Presentation :msg="messagez" v-if="contentArray[0] === 'Presentation'"/>
   <Project :msg="message" v-if="contentArray[0] === 'Project'"/>
   <Competence :msg="messagea" v-if="contentArray[0] === 'Competence'"/>
@@ -31,13 +32,13 @@
         />
         <h2 class="nav-title">Compétences</h2>
       </div>
-      <div class="content"></div>
     </div>
   </div>
 </template>
 
 <script>
 
+import Content from './components/Content.vue';
 import Presentation from './components/Project.vue';
 import Project from './components/Project.vue';
 import Competence from './components/Project.vue';
@@ -45,6 +46,7 @@ import Competence from './components/Project.vue';
 export default {
   name: "App",
   components: {
+    Content,
     Presentation,
     Project,
     Competence
@@ -196,11 +198,7 @@ export default {
   z-index: 100;
 }
 
-.content {
-  grid-area: 2 / 2 / 7 / 6;
-}
-
-#presentation, #project, #competence {
+#content, #presentation, #project, #competence {
   grid-area: 2 / 2 / 6 / 6;
   background: var(--colorDarkLighter);
 }
