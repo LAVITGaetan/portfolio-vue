@@ -32,6 +32,11 @@
         />
         <h2 class="nav-title">Compétences</h2>
       </div>
+      <div id="nav-theme">
+        <img class="theme-icon" src="./assets/theme-green.svg" />
+        <img class="theme-icon" src="./assets/theme-yellow.svg" />
+        <img class="theme-icon" src="./assets/theme-purple.svg" />
+      </div>
     </div>
   </div>
 </template>
@@ -41,7 +46,6 @@ import Content from "./components/Content.vue";
 import Presentation from "./components/Presentation.vue";
 import Project from "./components/Project.vue";
 import Competence from "./components/Competence.vue";
-
 export default {
   name: "App",
   components: {
@@ -61,23 +65,21 @@ export default {
   methods: {
     navDesign(content) {
       setTimeout(() => {
-        let presentation = document.getElementById('nav-presentation');
-        let project = document.getElementById('nav-project');
-        let competence = document.getElementById('nav-competence');
-
-        presentation.classList.remove('nav-active');
-        project.classList.remove('nav-active');
-        competence.classList.remove('nav-active');
-      let element = document.getElementById(`nav-${content}`);
-          element.classList.add('nav-active');
+        let presentation = document.getElementById("nav-presentation");
+        let project = document.getElementById("nav-project");
+        let competence = document.getElementById("nav-competence");
+        presentation.classList.remove("nav-active");
+        project.classList.remove("nav-active");
+        competence.classList.remove("nav-active");
+        let element = document.getElementById(`nav-${content}`);
+        element.classList.add("nav-active");
       }, 100);
-
     },
     nav(content) {
       this.contentArray = [];
       this.contentArray.push(content);
       this.navDesign(content);
-    }
+    },
   },
 };
 </script>
@@ -88,12 +90,10 @@ export default {
   margin: 0;
   box-sizing: border-box;
 }
-
 @font-face {
   font-family: Raleway;
   src: url(./fonts/Raleway.ttf);
 }
-
 :root {
   --colorCta: #65fbd2;
   --colorCtaLighter: #80f2d4;
@@ -105,14 +105,12 @@ export default {
   --colorLight: #e3f0ff;
   --colorLightLighter: #bdccde;
 }
-
 #app {
   width: 100vw;
   height: 100vh;
   background: var(--colorDark);
   font-family: Raleway;
 }
-
 #grid {
   width: 100vw;
   height: 100vh;
@@ -122,11 +120,9 @@ export default {
   grid-column-gap: 0px;
   grid-row-gap: 0px;
 }
-
 .color0 nav-icon {
   filter: var(--filterCta);
 }
-
 .nav {
   display: flex;
   align-items: center;
@@ -134,13 +130,12 @@ export default {
   position: relative;
   cursor: pointer;
 }
-
 .nav-active {
   background: var(--colorDarkLighter);
   box-shadow: 5px 5px 10px #00000020;
   margin: 20px;
+  border-left: 3px solid var(--colorCta);
 }
-
 .nav::before {
   transition: 0.3s ease-out;
   content: "";
@@ -152,12 +147,10 @@ export default {
   left: 0;
   z-index: 10;
 }
-
 .nav:hover:before {
   transition: 0.3s ease-in;
   width: 100%;
 }
-
 .nav::after {
   transition: 0.3s ease-out;
   content: "";
@@ -170,44 +163,50 @@ export default {
   right: 100px;
   z-index: 50;
 }
-
 .nav:hover:after {
   transition: 0.3s ease-in;
   width: 24px;
   height: 24px;
   right: 15px;
 }
-
 .nav:hover {
   transition-delay: 0.3s;
   box-shadow: 5px 5px 10px #00000050;
 }
-
 .nav:hover .nav-title {
   transition: 0.3s ease-in;
   color: var(--colorLight);
   letter-spacing: 0.15em;
 }
-
 #nav-presentation {
   transition: 0.3s ease-out;
   grid-area: 2 / 1 / 2 / 2;
 }
-
 #nav-project {
   transition: 0.3s ease-out;
-  grid-area: 3 / 1 / 4 / 2;
+  grid-area: 3 / 1 / 3 / 2;
 }
-
 #nav-competence {
   transition: 0.3s ease-out;
   grid-area: 4 / 1 / 4 / 2;
+}
+#nav-theme {
+  transition: 0.3s ease-out;
+  grid-area: 5 / 1 / 5 / 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.theme-icon {
+  width: 64px;
+  cursor: pointer;
+  height: 64px;
 }
 
 .nav-icon {
   z-index: 100;
 }
-
 .nav-title {
   transition: 0.3s ease-out;
   font-size: 18px;
@@ -217,7 +216,6 @@ export default {
   letter-spacing: 0.1em;
   z-index: 100;
 }
-
 #content,
 #presentation,
 #project,
