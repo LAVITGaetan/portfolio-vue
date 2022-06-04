@@ -1,15 +1,10 @@
 <template>
   <div id="app">
     <div id="grid">
-      <div class="settings">
-        <img
-          src="./assets/outlined-settings.svg"
-          width="48px"
-          height="48px"
-          class="color0 nav-icon"
-        />
-      </div>
-      <div class="nav nav1">
+  <Presentation :msg="messagez" v-if="contentArray[0] === 'Presentation'"/>
+  <Project :msg="message" v-if="contentArray[0] === 'Project'"/>
+  <Competence :msg="messagea" v-if="contentArray[0] === 'Competence'"/>
+      <div class="nav nav1" @click="nav('Presentation')">
         <img
           class="color0 nav-icon"
           src="./assets/polygon-full.svg"
@@ -18,7 +13,7 @@
         />
         <h2 class="nav-title">Présentation</h2>
       </div>
-      <div class="nav nav2">
+      <div class="nav nav2" @click="nav('Project')">
         <img
           class="color0 nav-icon"
           src="./assets/polygon-full.svg"
@@ -27,7 +22,7 @@
         />
         <h2 class="nav-title">Projets</h2>
       </div>
-      <div class="nav nav3">
+      <div class="nav nav3" @click="nav('Competence')">
         <img
           class="color0 nav-icon"
           src="./assets/polygon-full.svg"
@@ -42,8 +37,32 @@
 </template>
 
 <script>
+
+import Presentation from './components/Project.vue';
+import Project from './components/Project.vue';
+import Competence from './components/Project.vue';
+
 export default {
   name: "App",
+  components: {
+    Presentation,
+    Project,
+    Competence
+  },
+  data () {
+    return {
+      message:'hi',
+      messagez:'hizzz',
+      messagea:'hiaaaa',
+      contentArray:[]
+    }
+  },
+  methods: {
+    nav(content) {
+      this.contentArray = [];
+      this.contentArray.push(content)
+    }
+  }
 };
 </script>
 
@@ -61,11 +80,14 @@ export default {
 
 :root {
   --colorCta: #65fbd2;
+  --colorCtaLighter: #80f2d4;
+  --colorCtaDarker: #48dfb7;
   --filterCta: brightness(0) saturate(100%) invert(79%) sepia(37%)
     saturate(568%) hue-rotate(102deg) brightness(108%) contrast(97%);
   --colorDark: #0b192f;
   --colorDarkLighter: #101e34;
   --colorLight: #e3f0ff;
+  --colorLightLighter: #bdccde;
 }
 
 #app {
@@ -80,43 +102,9 @@ export default {
   height: 100vh;
   display: grid;
   grid-template-columns: repeat(3, 3fr) 2fr 1fr;
-  grid-template-rows: repeat(6, 1fr);
+  grid-template-rows: repeat(5, 1fr);
   grid-column-gap: 0px;
   grid-row-gap: 0px;
-}
-
-.settings {
-  transition: 0.3s ease-out;
-  grid-area: 1 / 5 / 2 / 6;
-  background: var(--colorDarkLighter);
-  display: flex;
-  align-items: center;
-  box-shadow: 5px 5px 10px #00000050;
-  justify-content: center;
-  position: relative;
-}
-
-.settings:before {
-  transition: 0.5s ease-in;
-  content: "";
-  position: absolute;
-  width: 0%;
-  height: 100%;
-  background: var(--colorDarkLighter);
-  box-shadow: 5px 5px 10px #00000020;
-  right: 0;
-  top: 0;
-}
-
-.settings:hover {
-  transition: 0.3s ease-in;
-  cursor: pointer;
-  box-shadow: 5px 5px 10px #00000000;
-}
-
-.settings:hover:before {
-  box-shadow: 5px 5px 10px #00000050;
-  width: 300%;
 }
 
 .color0 nav-icon {
@@ -165,7 +153,7 @@ export default {
   transition: 0.3s ease-in;
   width: 24px;
   height: 24px;
-  right: 0;
+  right: 15px;
 }
 
 .nav:hover {
@@ -175,6 +163,7 @@ export default {
 
 .nav:hover .nav-title {
   transition: 0.3s ease-in;
+  color: var(--colorLight);
   letter-spacing: 0.15em;
 }
 
@@ -200,14 +189,19 @@ export default {
 .nav-title {
   transition: 0.3s ease-out;
   font-size: 18px;
-  color: var(--colorLight);
+  color: var(--colorLightLighter);
   font-size: 600;
-  padding-left: 25px;
+  padding-left: 20px;
   letter-spacing: 0.1em;
   z-index: 100;
 }
 
 .content {
   grid-area: 2 / 2 / 7 / 6;
+}
+
+#presentation, #project, #competence {
+  grid-area: 2 / 2 / 6 / 6;
+  background: var(--colorDarkLighter);
 }
 </style>
