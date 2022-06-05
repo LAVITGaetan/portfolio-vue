@@ -96,26 +96,17 @@ export default {
       this.selectedTheme.push(color);
       switch (color) {
         case "green":
-          document.getElementById(`theme-yellow`).style.order = "0";
           document.getElementById(`theme-yellow`).style.transform = "none";
-          document.getElementById(`theme-green`).style.order = "1";
-          document.getElementById(`theme-purple`).style.order = "2";
           document.getElementById(`theme-purple`).style.transform = "none";
           this.switchColor(color);
           break;
         case "yellow":
-          document.getElementById(`theme-green`).style.order = "0";
           document.getElementById(`theme-green`).style.transform = "none";
-          document.getElementById(`theme-yellow`).style.order = "1";
-          document.getElementById(`theme-purple`).style.order = "2";
           document.getElementById(`theme-purple`).style.transform = "none";
           this.switchColor(color);
           break;
         case "purple":
-          document.getElementById(`theme-green`).style.order = "0";
           document.getElementById(`theme-green`).style.transform = "none";
-          document.getElementById(`theme-purple`).style.order = "1";
-          document.getElementById(`theme-yellow`).style.order = "2";
           document.getElementById(`theme-yellow`).style.transform = "none";
           this.switchColor(color);
           break;
@@ -149,7 +140,6 @@ export default {
     },
     switchColor(color) {
       let icon = document.getElementById(`theme-${color}`);
-      icon.style.order = "1";
       icon.style.transform = "translateY(-15px)";
       this.switchColorStyle(color);
     },
@@ -352,6 +342,7 @@ export default {
   width: 64px;
   cursor: pointer;
   height: 64px;
+  transition: .3s ease-in;
 }
 
 .nav-icon {
@@ -379,7 +370,7 @@ export default {
   background: var(--colorDark);
   border-top-left-radius: 5px;
   padding: 15px;
-  margin: 25px;
-  border-left: 20px double var(--colorDarkLighter);
+  margin: 0 25px;
+  border-left: 10px solid var(--colorDarkLighter);
 }
 </style>
