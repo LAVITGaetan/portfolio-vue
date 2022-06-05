@@ -1,53 +1,69 @@
 <template>
-    <div id="grid">
-      <Content v-if="contentArray[0] == undefined" />
-      <Presentation v-if="contentArray[0] === 'presentation'" />
-      <Project v-if="contentArray[0] === 'project'" />
-      <Competence v-if="contentArray[0] === 'competence'" />
-      <Contact v-if="contentArray[0] === 'contact'" />
-      <div id="hero"><h1 class="hero-title color0"></h1></div>
-      <div class="nav" id="nav-presentation" @click="nav('presentation')">
-        <img
-          class="color0 nav-icon"
-          src="./assets/polygon-full.svg"
-          width="48px"
-          height="48px"
-        />
-        <h2 class="nav-title">Présentation</h2>
-      </div>
-      <div class="nav" id="nav-project" @click="nav('project')">
-        <img
-          class="color0 nav-icon"
-          src="./assets/polygon-full.svg"
-          width="48px"
-          height="48px"
-        />
-        <h2 class="nav-title">Projets</h2>
-      </div>
-      <div class="nav" id="nav-competence" @click="nav('competence')">
-        <img
-          class="color0 nav-icon"
-          src="./assets/polygon-full.svg"
-          width="48px"
-          height="48px"
-        />
-        <h2 class="nav-title">Compétences</h2>
-      </div>
-            <div class="nav" id="nav-contact" @click="nav('contact')">
-        <img
-          class="color0 nav-icon"
-          src="./assets/polygon-full.svg"
-          width="48px"
-          height="48px"
-        />
-        <h2 class="nav-title">Me contacter</h2>
-      </div>
-      <div id="nav-theme">
-        <img class="theme-icon" src="./assets/theme-green.svg" />
-        <img class="theme-icon" src="./assets/theme-yellow.svg" />
-        <img class="theme-icon" src="./assets/theme-purple.svg" />
-      </div>
+  <div id="grid">
+    <Content v-if="contentArray[0] == undefined" />
+    <Presentation v-if="contentArray[0] === 'presentation'" />
+    <Project v-if="contentArray[0] === 'project'" />
+    <Competence v-if="contentArray[0] === 'competence'" />
+    <Contact v-if="contentArray[0] === 'contact'" />
+    <div id="hero"><h1 class="hero-title color color0"></h1></div>
+    <div class="nav" id="nav-presentation" @click="nav('presentation')">
+      <img
+        class="color color0 nav-icon"
+        src="./assets/polygon-full.svg"
+        width="48px"
+        height="48px"
+      />
+      <h2 class="nav-title">Présentation</h2>
     </div>
+    <div class="nav" id="nav-project" @click="nav('project')">
+      <img
+        class="color color0 nav-icon"
+        src="./assets/polygon-full.svg"
+        width="48px"
+        height="48px"
+      />
+      <h2 class="nav-title">Projets</h2>
+    </div>
+    <div class="nav" id="nav-competence" @click="nav('competence')">
+      <img
+        class="color color0 nav-icon"
+        src="./assets/polygon-full.svg"
+        width="48px"
+        height="48px"
+      />
+      <h2 class="nav-title">Compétences</h2>
+    </div>
+    <div class="nav" id="nav-contact" @click="nav('contact')">
+      <img
+        class="color color0 nav-icon"
+        src="./assets/polygon-full.svg"
+        width="48px"
+        height="48px"
+      />
+      <h2 class="nav-title">Me contacter</h2>
+    </div>
+    <div id="nav-theme">
+      <img
+        id="theme-yellow"
+        class="theme-icon"
+        @click="switchTheme('yellow')"
+        src="./assets/theme-yellow.svg"
+      />
+      <img
+        id="theme-green"
+        class="theme-icon"
+        style="transform: translateY(-15px)"
+        @click="switchTheme('green')"
+        src="./assets/theme-green.svg"
+      />
+      <img
+        id="theme-purple"
+        class="theme-icon"
+        @click="switchTheme('purple')"
+        src="./assets/theme-purple.svg"
+      />
+    </div>
+  </div>
 </template>
 
 <script>
@@ -63,14 +79,80 @@ export default {
     Presentation,
     Project,
     Competence,
-    Contact
+    Contact,
   },
   data() {
     return {
       contentArray: [],
+      selectedTheme: [],
     };
   },
   methods: {
+    switchTheme(color) {
+      if (this.selectedTheme[0] === color) {
+        return;
+      }
+      this.selectedTheme = [];
+      this.selectedTheme.push(color);
+      switch (color) {
+        case "green":
+          document.getElementById(`theme-yellow`).style.order = "0";
+          document.getElementById(`theme-yellow`).style.transform = "none";
+          document.getElementById(`theme-green`).style.order = "1";
+          document.getElementById(`theme-purple`).style.order = "2";
+          document.getElementById(`theme-purple`).style.transform = "none";
+          this.switchColor(color);
+          break;
+        case "yellow":
+          document.getElementById(`theme-green`).style.order = "0";
+          document.getElementById(`theme-green`).style.transform = "none";
+          document.getElementById(`theme-yellow`).style.order = "1";
+          document.getElementById(`theme-purple`).style.order = "2";
+          document.getElementById(`theme-purple`).style.transform = "none";
+          this.switchColor(color);
+          break;
+        case "purple":
+          document.getElementById(`theme-green`).style.order = "0";
+          document.getElementById(`theme-green`).style.transform = "none";
+          document.getElementById(`theme-purple`).style.order = "1";
+          document.getElementById(`theme-yellow`).style.order = "2";
+          document.getElementById(`theme-yellow`).style.transform = "none";
+          this.switchColor(color);
+          break;
+      }
+    },
+    switchColorStyle(color) {
+      let colorClass = document.getElementsByClassName("color");
+      switch (color) {
+        case "green":
+          for (let i = 0; i < colorClass.length; i++) {
+            colorClass[i].classList.add("color0");
+            colorClass[i].classList.remove("color1");
+            colorClass[i].classList.remove("color2");
+          }
+          break;
+        case "yellow":
+          for (let i = 0; i < colorClass.length; i++) {
+            colorClass[i].classList.add("color1");
+            colorClass[i].classList.remove("color0");
+            colorClass[i].classList.remove("color2");
+          }
+          break;
+        case "purple":
+          for (let i = 0; i < colorClass.length; i++) {
+            colorClass[i].classList.add("color2");
+            colorClass[i].classList.remove("color0");
+            colorClass[i].classList.remove("color1");
+          }
+          break;
+      }
+    },
+    switchColor(color) {
+      let icon = document.getElementById(`theme-${color}`);
+      icon.style.order = "1";
+      icon.style.transform = "translateY(-15px)";
+      this.switchColorStyle(color);
+    },
     navDesign(content) {
       setTimeout(() => {
         // remove active class from every nav items
@@ -86,7 +168,8 @@ export default {
         // add active class to target element
         let element = document.getElementById(`nav-${content}`);
         element.classList.add("nav-active");
-      }, 100);
+        this.switchColorStyle(this.selectedTheme[0]);
+      }, 10);
     },
     nav(content) {
       // Display content from the selected nav item
@@ -115,14 +198,18 @@ export default {
 
 :root {
   --colorCta: #65fbd2;
-  --colorCtaLighter: #80f2d4;
-  --colorCtaDarker: #48dfb7;
+  --colorCta1: #f6be3b;
+  --colorCta2: #b065fb;
   --filterCta: brightness(0) saturate(100%) invert(79%) sepia(37%)
     saturate(568%) hue-rotate(102deg) brightness(108%) contrast(97%);
+  --filterCta1: brightness(0) saturate(100%) invert(77%) sepia(98%)
+    saturate(452%) hue-rotate(328deg) brightness(100%) contrast(94%);
+  --filterCta2: brightness(0) saturate(100%) invert(48%) sepia(9%)
+    saturate(4612%) hue-rotate(228deg) brightness(102%) contrast(97%);
   --colorDark: #0b192f;
   --colorDarkLighter: #101e34;
   --colorLight: #e3f0ff;
-  --colorLightLighter: #bdccde;
+  --colorLightLighter: #a7b2bb;
 }
 
 #app {
@@ -157,6 +244,17 @@ export default {
 
 .color0 {
   filter: var(--filterCta);
+  color: var(--colorCta);
+}
+
+.color1 {
+  filter: var(--filterCta1);
+  color: var(--colorCta2);
+}
+
+.color2 {
+  filter: var(--filterCta2);
+  color: var(--colorCta2);
 }
 
 .nav {
@@ -171,7 +269,7 @@ export default {
   background: var(--colorDarkLighter);
   box-shadow: 5px 5px 10px #00000020;
   margin: 20px;
-  border-left: 3px solid var(--colorCta);
+  border-left: 3px solid var(--colorLightLighter);
 }
 
 .nav::before {
@@ -242,7 +340,6 @@ export default {
   grid-area: 4 / 1 / 4 / 2;
 }
 
-
 #nav-theme {
   transition: 0.3s ease-out;
   grid-area: 5 / 1 / 5 / 2;
@@ -283,7 +380,6 @@ export default {
   border-top-left-radius: 5px;
   padding: 15px;
   margin: 25px;
-  border-left: 10px double var(--colorDarkLighter);
+  border-left: 20px double var(--colorDarkLighter);
 }
-
 </style>
