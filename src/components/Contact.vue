@@ -1,12 +1,12 @@
 <template>
-  <div id="competence">
-    <h1>Competence</h1>
+  <div id="contact">
+    <h1>Contact</h1>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Competence',
+  name: 'Contact',
   props: {
     msg: String
   }
