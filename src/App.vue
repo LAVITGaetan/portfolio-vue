@@ -43,18 +43,18 @@
       <h2 class="nav-title">Me contacter</h2>
     </div>
     <div id="nav-theme">
-      <img
-        id="theme-yellow"
-        class="theme-icon"
-        @click="switchTheme('yellow')"
-        src="./assets/theme-yellow.svg"
-      />
-      <img
+            <img
         id="theme-green"
         class="theme-icon"
         style="transform: translateY(-15px)"
         @click="switchTheme('green')"
         src="./assets/theme-green.svg"
+      />
+      <img
+        id="theme-yellow"
+        class="theme-icon"
+        @click="switchTheme('yellow')"
+        src="./assets/theme-yellow.svg"
       />
       <img
         id="theme-purple"
@@ -63,6 +63,15 @@
         src="./assets/theme-purple.svg"
       />
     </div>
+      <form class="contact-form" @submit.prevent="sendEmail">
+    <label>Name</label>
+    <input type="text" name="user_name">
+    <label>Email</label>
+    <input type="email" name="user_email">
+    <label>Message</label>
+    <textarea name="message"></textarea>
+    <input type="submit" value="Send" @click="sendEmail">
+  </form>
   </div>
 </template>
 
@@ -72,6 +81,7 @@ import Presentation from "./components/Presentation.vue";
 import Project from "./components/Project.vue";
 import Competence from "./components/Competence.vue";
 import Contact from "./components/Contact.vue";
+import emailjs from 'emailjs-com';
 export default {
   name: "App",
   components: {
@@ -169,6 +179,14 @@ export default {
       // A css function to style the selected nav item
       this.navDesign(content);
     },
+    sendEmail: (e) => {
+      emailjs.sendForm('service_pavp8d5', 'template_vctb17y', e.target, 'tI_GYCmxxx1ocbTk6')
+        .then((result) => {
+            console.log('SUCCESS!', result.status, result.text);
+        }, (error) => {
+            console.log('FAILED...', error);
+        });
+  },
   },
 };
 </script>
@@ -221,16 +239,6 @@ export default {
   grid-row-gap: 0px;
 }
 
-#hero {
-  grid-area: 1 / 1 / 1 / 2;
-  background-color: var(--colorDark);
-  background-image: url(./assets/design.png);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  margin: 30px;
-  border-radius: 3px;
-}
 
 .color0 {
   filter: var(--filterCta);
@@ -370,7 +378,7 @@ export default {
   background: var(--colorDark);
   border-top-left-radius: 5px;
   padding: 15px;
-  margin: 0 25px;
-  border-left: 10px solid var(--colorDarkLighter);
+  margin: 0 0 0 25px;
+  background: var(--colorDarkLighter);
 }
 </style>
