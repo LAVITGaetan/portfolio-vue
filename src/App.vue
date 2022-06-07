@@ -63,15 +63,7 @@
         src="./assets/theme-purple.svg"
       />
     </div>
-      <form class="contact-form" @submit.prevent="sendEmail">
-    <label>Name</label>
-    <input type="text" name="user_name">
-    <label>Email</label>
-    <input type="email" name="user_email">
-    <label>Message</label>
-    <textarea name="message"></textarea>
-    <input type="submit" value="Send" @click="sendEmail">
-  </form>
+
   </div>
 </template>
 
@@ -81,7 +73,6 @@ import Presentation from "./components/Presentation.vue";
 import Project from "./components/Project.vue";
 import Competence from "./components/Competence.vue";
 import Contact from "./components/Contact.vue";
-import emailjs from 'emailjs-com';
 export default {
   name: "App",
   components: {
@@ -179,14 +170,7 @@ export default {
       // A css function to style the selected nav item
       this.navDesign(content);
     },
-    sendEmail: (e) => {
-      emailjs.sendForm('service_pavp8d5', 'template_vctb17y', e.target, 'tI_GYCmxxx1ocbTk6')
-        .then((result) => {
-            console.log('SUCCESS!', result.status, result.text);
-        }, (error) => {
-            console.log('FAILED...', error);
-        });
-  },
+
   },
 };
 </script>
