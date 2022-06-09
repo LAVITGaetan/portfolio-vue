@@ -43,7 +43,7 @@
       <h2 class="nav-title">Me contacter</h2>
     </div>
     <div id="nav-theme">
-            <img
+      <img
         id="theme-green"
         class="theme-icon"
         style="transform: translateY(-15px)"
@@ -63,7 +63,6 @@
         src="./assets/theme-purple.svg"
       />
     </div>
-
   </div>
 </template>
 
@@ -115,12 +114,18 @@ export default {
     },
     switchColorStyle(color) {
       let colorClass = document.getElementsByClassName("color");
+      let btnClass = document.getElementsByClassName("btn");
       switch (color) {
         case "green":
           for (let i = 0; i < colorClass.length; i++) {
             colorClass[i].classList.add("color0");
             colorClass[i].classList.remove("color1");
             colorClass[i].classList.remove("color2");
+          }
+          for (let i = 0; i < btnClass.length; i++) {
+            btnClass[i].classList.add("btn0");
+            btnClass[i].classList.remove("btn1");
+            btnClass[i].classList.remove("btn2");
           }
           break;
         case "yellow":
@@ -129,12 +134,22 @@ export default {
             colorClass[i].classList.remove("color0");
             colorClass[i].classList.remove("color2");
           }
+          for (let i = 0; i < btnClass.length; i++) {
+            btnClass[i].classList.add("btn1");
+            btnClass[i].classList.remove("btn0");
+            btnClass[i].classList.remove("btn2");
+          }
           break;
         case "purple":
           for (let i = 0; i < colorClass.length; i++) {
             colorClass[i].classList.add("color2");
             colorClass[i].classList.remove("color0");
             colorClass[i].classList.remove("color1");
+          }
+          for (let i = 0; i < btnClass.length; i++) {
+            btnClass[i].classList.add("btn2");
+            btnClass[i].classList.remove("btn0");
+            btnClass[i].classList.remove("btn1");
           }
           break;
       }
@@ -170,7 +185,6 @@ export default {
       // A css function to style the selected nav item
       this.navDesign(content);
     },
-
   },
 };
 </script>
@@ -223,6 +237,29 @@ export default {
   grid-row-gap: 0px;
 }
 
+.btn {
+  padding: 0.8em 1.6em;
+  border-radius: 3px;
+  outline: none;
+  color: #ffffff;
+  font-size: 16px;
+  letter-spacing: 0.1em;
+}
+
+.btn0 {
+  background: var(--colorCta);
+  transition: .2s ease-in;
+}
+
+.btn1 {
+  background: var(--colorCta1);
+  transition: .2s ease-in;
+}
+
+.btn2 {
+  background: var(--colorCta2);
+  transition: .2s ease-in;
+}
 
 .color0 {
   filter: var(--filterCta);
@@ -334,7 +371,7 @@ export default {
   width: 64px;
   cursor: pointer;
   height: 64px;
-  transition: .3s ease-in;
+  transition: 0.3s ease-in;
 }
 
 .nav-icon {
